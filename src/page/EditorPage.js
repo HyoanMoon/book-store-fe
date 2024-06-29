@@ -113,7 +113,7 @@ const EditorPage = () => {
       <Typography variant="h4" gutterBottom>
         에디터 추천 페이지
       </Typography>
-      {getBooksByQueryType('BlogBest')
+      {getBooksByQueryType('BestSeller')
         .slice(0, editors.length)
         .map((book, index) => (
           <StyledPaper key={index} elevation={3}>
