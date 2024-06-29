@@ -27,6 +27,7 @@ import MyPageWishList from '../page/MyPageWishList';
 import PasswordConfirmPage from '../page/PasswordConfirmPage';
 import UserInfoPage from '../page/UserInfoPage';
 import AccountDeletionPage from '../page/AccountDeletionPage';
+import OrderRequestPage from '../page/OrderRequestPage';
 
 const AppRouter = () => {
   return (
@@ -34,11 +35,11 @@ const AppRouter = () => {
       <Routes>
         {/* 메인, 상품 전체, 상품 상세 */}
         <Route index element={<MainPage />} />
-        <Route path="/books/all/category" element={<CategoryPage />} />
+        <Route path="/books/all/category/:categoryid" element={<CategoryPage />} />
         <Route path="/book/:bookid" element={<BookDetailPage />} />
         <Route path="/search" element={<SearchedBooksPage />} />
         <Route path="/books/all" element={<BooksAllPage />} />
-        <Route path="/books/group/:bookGroup" element={<BooksGroupPage />} />
+        <Route path="/books/group/:bookGroup/*" element={<BooksGroupPage />} />
         <Route path="/books/editor-recommend" element={<EditorPage />} />
 
         {/* 로그인, 회원가입 */}
@@ -61,14 +62,15 @@ const AppRouter = () => {
           <Route path="/mypage/order-list" element={<MyPageOrderList />} />
           <Route path="/mypage/order-claim-list" element={<MyPageOrderClaimList />} />
           <Route path="/mypage/order-cancel-list" element={<MyPageOrderCancelList />} />
+          <Route path="/mypage/order-request" element={<OrderRequestPage />} />
           <Route path="/mypage/my-review" element={<MyPageMyReview />} />
           <Route path="/mypage/wishlist" element={<MyPageWishList />} />
-        </Route>
 
-        {/* 마이페이지- 회원정보 */}
-        <Route path="/member/confirm-password" element={<PasswordConfirmPage />} />
-        <Route path="/member/user-info" element={<UserInfoPage />} />
-        <Route path="/member/account-deletion" element={<AccountDeletionPage />} />
+          {/* 마이페이지- 회원정보 */}
+          <Route path="/member/confirm-password" element={<PasswordConfirmPage />} />
+          <Route path="/member/user-info" element={<UserInfoPage />} />
+          <Route path="/member/account-deletion" element={<AccountDeletionPage />} />
+        </Route>
 
         {/* 어드민 */}
         <Route element={<PrivateRoute permissionLevel="admin" />}>
