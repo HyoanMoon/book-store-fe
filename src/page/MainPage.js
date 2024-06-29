@@ -22,7 +22,6 @@ const MainPage = () => {
 
   const newAllBooksCategories = getCategories(newAllBooks);
   const bestSellerCategories = getCategories(bestSeller);
-  console.log('블로그베스트', blogBestBooks);
   return (
     <Box sx={{ paddingBottom: 15 }}>
       <Box>
@@ -65,9 +64,9 @@ const MainPage = () => {
         </Box>
         <Box sx={{ paddingTop: '20px' }}>
           {isMobile ? (
-            <BooksCarousel bookList={blogBestBooks.slice(0, 4)} title={'에디터 추천'} isMobile={isMobile} />
+            <BooksCarousel bookList={bestSeller.slice(0, 4)} title={'에디터 추천'} isMobile={isMobile} />
           ) : (
-            <BookContainer bookList={blogBestBooks.slice(0, 4)} title={'에디터 추천'} />
+            <BookContainer bookList={bestSeller.slice(0, 4)} title={'에디터 추천'} />
           )}
         </Box>
       </Container>
