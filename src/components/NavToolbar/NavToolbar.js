@@ -2,8 +2,7 @@ import Box from '@mui/material/Box';
 import { bookActions } from '../../action/bookActions';
 import { categoryActions } from '../../action/categoryActions';
 import SearchBook from '../SearchBook';
-// eslint-disable-next-line max-len
-import { IconButton, Menu, useMediaQuery, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Badge } from '@mui/material'; // 추가된 부분
+import { IconButton, Menu, useMediaQuery, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Badge } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Toolbar from '@mui/material/Toolbar';
@@ -24,14 +23,13 @@ const NavToolbar = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
-  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
   const { cartItemCount } = useSelector((state) => state.cart);
 
-  const [isDialogOpen, setIsDialogOpen] = useState(false); // 추가된 부분
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleLogout = () => {
     dispatch(userActions.logout());
@@ -152,8 +150,6 @@ const NavToolbar = () => {
           minWidth: '130px',
         }}
         onClick={handleCartClick}>
-        {' '}
-        {/* 변경된 부분 */}
         {cart} ({cartItemCount || 0})
       </Button>
       {user && user.role === 'admin' && (
@@ -183,50 +179,53 @@ const NavToolbar = () => {
       sx={{
         position: 'absolute',
       }}>
-      {user ? (
-        <>
-          <MenuItem
-            onClick={() => {
-              popupState.close();
-              navigate('/mypage');
-            }}>
-            마이페이지
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              popupState.close();
-              handleLogout();
-            }}>
-            {logOut}
-          </MenuItem>
-          {user.role === 'admin' && (
+      {user
+        ? [
             <MenuItem
+              key="mypage"
               onClick={() => {
                 popupState.close();
-                navigate('/admin/dashboard');
+                navigate('/mypage');
               }}>
-              관리자
-            </MenuItem>
-          )}
-        </>
-      ) : (
-        <>
-          <MenuItem
-            onClick={() => {
-              popupState.close();
-              navigate('/login');
-            }}>
-            {logIn}
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              popupState.close();
-              navigate('/register');
-            }}>
-            {register}
-          </MenuItem>
-        </>
-      )}
+              마이페이지
+            </MenuItem>,
+            <MenuItem
+              key="logout"
+              onClick={() => {
+                popupState.close();
+                handleLogout();
+              }}>
+              {logOut}
+            </MenuItem>,
+            user.role === 'admin' && (
+              <MenuItem
+                key="admin"
+                onClick={() => {
+                  popupState.close();
+                  navigate('/admin/dashboard');
+                }}>
+                관리자
+              </MenuItem>
+            ),
+          ]
+        : [
+            <MenuItem
+              key="login"
+              onClick={() => {
+                popupState.close();
+                navigate('/login');
+              }}>
+              {logIn}
+            </MenuItem>,
+            <MenuItem
+              key="register"
+              onClick={() => {
+                popupState.close();
+                navigate('/register');
+              }}>
+              {register}
+            </MenuItem>,
+          ]}
     </Menu>
   );
 
@@ -248,10 +247,10 @@ const NavToolbar = () => {
             dispatch(bookActions.getBookList({}));
             dispatch(categoryActions.setSelectedCategory(null));
           }}
-          sx={{ cursor: 'pointer', padding: 1 }}>
-          <img src="/logo.png" alt="로고 이미지" style={{ color: '#d3ddbd', borderRadius: '3px', height: isMobile ? '4rem' : isTablet ? '5rem' : '7rem' }} />
+          sx={{ cursor: 'pointer', padding: 1, display: 'flex', alignItems: 'center', justifyContent: isMobile ? 'flex-start' : 'center' }}>
+          <img src="/logo1.png" alt="로고 이미지" style={{ color: '#d3ddbd', borderRadius: '3px', height: isMobile ? '3.5rem' : isTablet ? '5rem' : '7rem' }} />
         </Box>
-        <Box sx={{ width: isMobile ? '90%' : isTablet ? '70%' : '60%', marginY: isMobile ? 2 : isTablet ? 1 : 0 }}>
+        <Box sx={{ width: isMobile ? '100%' : isTablet ? '80%' : '70%', marginY: isMobile ? 2 : isTablet ? 1 : 0 }}>
           <SearchBook
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
@@ -269,7 +268,7 @@ const NavToolbar = () => {
                   <IconButton color="primary" {...bindTrigger(popupState)}>
                     <PersonIcon />
                   </IconButton>
-                  <IconButton color="primary" onClick={() => navigate('/cart')}>
+                  <IconButton color="primary" onClick={handleCartClick}>
                     <Badge badgeContent={cartItemCount || 0} color="secondary">
                       <ShoppingCartIcon />
                     </Badge>
@@ -292,8 +291,8 @@ const NavToolbar = () => {
         <DialogActions>
           <Button
             onClick={() => {
-              handleDialogClose(); // 모달을 닫는 함수 호출
-              navigate('/login'); // 로그인 페이지로 이동
+              handleDialogClose();
+              navigate('/login');
             }}
             color="primary">
             로그인으로 이동하기
