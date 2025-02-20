@@ -129,6 +129,7 @@ const CategoryBar = ({ bookList }) => {
           <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
             <IconButton
               onClick={handlePopperClick}
+              aria-label="Open menu"
               sx={{
                 color: 'primary.main',
                 width: { xs: 40, sm: 50 },

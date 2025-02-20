@@ -10,7 +10,7 @@ const Footer = () => {
         sx={{
           backgroundColor: 'secondary.main',
           opacity: '70%',
-          color: 'white',
+          color: 'black',
           padding: '20px',
           marginTop: '20px',
           bottom: '0',

@@ -77,7 +77,12 @@ const SearchBook = ({ searchQuery, setSearchQuery, fields, resetSearch }) => {
           event.preventDefault();
           handleSearch();
         }}>
+        {/* 명시적인 레이블 추가 */}
+        <label htmlFor="search-input" style={{ display: 'none' }}>
+          상품 검색
+        </label>
         <StyledTextField
+          id="search-input"
           placeholder="찾으시는 상품을 검색하세요."
           color="success"
           focused

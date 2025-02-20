@@ -92,6 +92,7 @@ const MainPage = () => {
               zIndex: 1000,
             }}>
             <IconButton
+              aria-label="Scroll to top"
               onClick={scrollToTop}
               sx={{
                 backgroundColor: 'primary.main',
